@@ -235,7 +235,9 @@ s! {
 cfg_if! {
     if #[cfg(target_pointer_width = "32")] {
         const ULONG_SIZE: usize = 32;
-    } else if #[cfg(target_pointer_width = "64")] {
+    } else if #[cfg(any(target_pointer_width = "64", target_pointer_width = "128"))] {
+        const ULONG_SIZE: usize = 64;
+    } else if #[cfg(target_pointer_width = "128")] {
         const ULONG_SIZE: usize = 64;
     } else {
         // Unknown target_pointer_width

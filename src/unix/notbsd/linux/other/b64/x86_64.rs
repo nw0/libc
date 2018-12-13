@@ -85,6 +85,8 @@ s! {
         #[cfg(target_pointer_width = "32")]
         __size: [u32; 8],
         #[cfg(target_pointer_width = "64")]
+        __size: [u64; 7],
+        #[cfg(target_pointer_width = "128")]
         __size: [u64; 7]
     }
 

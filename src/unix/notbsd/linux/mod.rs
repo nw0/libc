@@ -197,6 +197,10 @@ s! {
                    target_pointer_width = "64"),
                repr(align(8)))]
     #[cfg_attr(all(feature = "align",
+                   target_env = "musl",
+                   target_pointer_width = "128"),
+               repr(align(16)))]
+    #[cfg_attr(all(feature = "align",
                    not(target_env = "musl"),
                    target_arch = "x86"),
                repr(align(4)))]
@@ -453,6 +457,8 @@ s! {
         pub trigger: ff_trigger,
         pub replay: ff_replay,
         // FIXME this is actually a union
+        #[cfg(target_pointer_width = "128")]
+        pub u: [u64; 4],
         #[cfg(target_pointer_width = "64")]
         pub u: [u64; 4],
         #[cfg(target_pointer_width = "32")]
@@ -460,6 +466,8 @@ s! {
     }
 
     pub struct dl_phdr_info {
+        #[cfg(target_pointer_width = "128")]
+        pub dlpi_addr: Elf64_Addr,
         #[cfg(target_pointer_width = "64")]
         pub dlpi_addr: Elf64_Addr,
         #[cfg(target_pointer_width = "32")]
@@ -467,11 +475,15 @@ s! {
 
         pub dlpi_name: *const ::c_char,
 
+        #[cfg(target_pointer_width = "128")]
+        pub dlpi_phdr: *const Elf64_Phdr,
         #[cfg(target_pointer_width = "64")]
         pub dlpi_phdr: *const Elf64_Phdr,
         #[cfg(target_pointer_width = "32")]
         pub dlpi_phdr: *const Elf32_Phdr,
 
+        #[cfg(target_pointer_width = "128")]
+        pub dlpi_phnum: Elf64_Half,
         #[cfg(target_pointer_width = "64")]
         pub dlpi_phnum: Elf64_Half,
         #[cfg(target_pointer_width = "32")]

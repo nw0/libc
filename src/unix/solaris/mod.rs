@@ -124,6 +124,8 @@ s! {
     }
 
     pub struct fd_set {
+        #[cfg(target_pointer_width = "128")]
+        fds_bits: [i64; FD_SETSIZE / 64],
         #[cfg(target_pointer_width = "64")]
         fds_bits: [i64; FD_SETSIZE / 64],
         #[cfg(target_pointer_width = "32")]

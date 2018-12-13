@@ -104,6 +104,8 @@ s! {
                repr(align(4)))]
     #[cfg_attr(all(feature = "align", target_pointer_width = "64"),
                repr(align(8)))]
+    #[cfg_attr(all(feature = "align", target_pointer_width = "128"),
+               repr(align(16)))]
     pub struct pthread_cond_t {
         #[cfg(not(feature = "align"))]
         __align: [*const ::c_void; 0],

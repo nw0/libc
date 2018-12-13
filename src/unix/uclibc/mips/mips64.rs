@@ -192,6 +192,8 @@ s! {
                repr(align(4)))]
     #[cfg_attr(all(feature = "align", target_pointer_width = "64"),
                repr(align(8)))]
+    #[cfg_attr(all(feature = "align", target_pointer_width = "128"),
+               repr(align(16)))]
     pub struct sem_t {
         __size: [::c_char; 32],
         #[cfg(not(feature = "align"))]

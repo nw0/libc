@@ -19,6 +19,8 @@ s! {
         __val: [u32; 32],
         #[cfg(target_pointer_width = "64")]
         __val: [u64; 16],
+        #[cfg(target_pointer_width = "128")]
+        __val: [u64; 16],
     }
 
     pub struct sysinfo {

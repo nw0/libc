@@ -411,6 +411,8 @@ s! {
         bits: [u32; 32],
         #[cfg(target_pointer_width = "64")]
         bits: [u64; 16],
+        #[cfg(target_pointer_width = "128")]
+        bits: [u64; 16],
     }
 
     pub struct if_nameindex {
@@ -436,6 +438,8 @@ cfg_if! {
     if #[cfg(target_pointer_width = "32")] {
         const ULONG_SIZE: usize = 32;
     } else if #[cfg(target_pointer_width = "64")] {
+        const ULONG_SIZE: usize = 64;
+    } else if #[cfg(target_pointer_width = "128")] {
         const ULONG_SIZE: usize = 64;
     } else {
         // Unknown target_pointer_width
